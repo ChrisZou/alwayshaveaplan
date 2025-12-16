@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleIdentifier</key>
+    <string>com.chriszou.alwayshaveaplan</string>
+    <key>CFBundleName</key>
+    <string>AlwaysHaveAPlan</string>
+    <key>CFBundleDisplayName</key>
+    <string>AlwaysHaveAPlan</string>
+    <key>CFBundleExecutable</key>
+    <string>AlwaysHaveAPlan</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+    <key>NSCalendarsUsageDescription</key>
+    <string>需要访问你的日历以在解锁时显示当前日程。</string>
+</dict>
+</plist>
+
