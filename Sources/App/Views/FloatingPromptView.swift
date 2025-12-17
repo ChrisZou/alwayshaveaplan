@@ -112,23 +112,18 @@ struct NoEventsView: View {
                 .font(.system(size: 280, weight: .black, design: .serif))
                 .foregroundColor(.coral500.opacity(0.04))
 
-            VStack(spacing: 16) {
+            VStack(spacing: 0) {
+                Spacer()
+
                 Text("你想干什么？")
-                    .font(.system(size: 52, weight: .bold, design: .serif))
+                    .font(.system(size: 84, weight: .bold, design: .rounded))
                     .foregroundColor(.stone800)
                     .multilineTextAlignment(.center)
                     .opacity(appeared ? 1 : 0)
                     .offset(y: appeared ? 0 : 20)
                     .animation(.easeOut(duration: 0.6), value: appeared)
 
-                Text("没有正在进行的日程")
-                    .font(.system(size: 18, weight: .regular))
-                    .foregroundColor(.stone400)
-                    .opacity(appeared ? 1 : 0)
-                    .offset(y: appeared ? 0 : 20)
-                    .animation(.easeOut(duration: 0.6).delay(0.1), value: appeared)
-
-                Spacer().frame(height: 24)
+                Spacer()
 
                 Button(action: onCheck) {
                     HStack(spacing: 10) {
@@ -155,19 +150,10 @@ struct NoEventsView: View {
                 .opacity(appeared ? 1 : 0)
                 .offset(y: appeared ? 0 : 20)
                 .animation(.easeOut(duration: 0.6).delay(0.2), value: appeared)
+
+                Spacer()
             }
             .padding(40)
-
-            // Decorative dots at bottom
-            VStack {
-                Spacer()
-                HStack(spacing: 8) {
-                    Circle().fill(Color.stone300).frame(width: 6, height: 6)
-                    Circle().fill(Color.coral400).frame(width: 6, height: 6)
-                    Circle().fill(Color.stone300).frame(width: 6, height: 6)
-                }
-                .padding(.bottom, 32)
-            }
         }
         .onAppear {
             appeared = true
@@ -181,28 +167,8 @@ struct EventView: View {
     @State private var appeared = false
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Header
-            HStack {
-                HStack(spacing: 8) {
-                    Circle()
-                        .fill(Color.sage500)
-                        .frame(width: 8, height: 8)
-                    Text("当前日程")
-                        .font(.system(size: 13, weight: .semibold))
-                        .foregroundColor(.sage600)
-                        .tracking(2)
-                        .textCase(.uppercase)
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 32)
-            .padding(.top, 24)
-            .padding(.bottom, 16)
-
-            Spacer()
-
-            // Event card
+        ZStack {
+            // Event card - centered
             VStack(alignment: .center, spacing: 20) {
                 Text(event.title ?? "(无标题)")
                     .font(.system(size: 38, weight: .bold, design: .serif))
@@ -280,12 +246,29 @@ struct EventView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(Color.black.opacity(0.06), lineWidth: 1)
             )
-            .padding(.horizontal, 40)
             .opacity(appeared ? 1 : 0)
             .scaleEffect(appeared ? 1 : 0.95)
             .animation(.easeOut(duration: 0.5), value: appeared)
 
-            Spacer()
+            // Header - absolute positioned at top
+            VStack {
+                HStack {
+                    HStack(spacing: 8) {
+                        Circle()
+                            .fill(Color.sage500)
+                            .frame(width: 8, height: 8)
+                        Text("当前日程")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundColor(.sage600)
+                            .tracking(2)
+                            .textCase(.uppercase)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 32)
+                .padding(.top, 24)
+                Spacer()
+            }
         }
         .onAppear {
             appeared = true
