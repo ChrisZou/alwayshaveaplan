@@ -1,4 +1,4 @@
-# AlwaysHaveAPlan
+# Always Have a Plan
 
 [English](#english) | [中文](#中文)
 
@@ -6,7 +6,7 @@
 
 ## English
 
-A macOS app that helps you stay intentional with your time by showing your current schedule when you unlock your Mac.
+A macOS app that forces you to stay intentional with your time by showing your current schedule (or a reminder blocking dialog when you don't have any) when you unlock your Mac.
 
 ### Screenshots
 
@@ -82,8 +82,6 @@ swift build
 ./build-release.sh
 ```
 
-**Logs**: `~/Library/Logs/AlwaysHaveAPlan.log`
-
 ### Configuration
 
 - **Target Calendar**: Modify `CalendarManager.targetCalendarTitle` in `Sources/App/CalendarManager.swift`
@@ -108,7 +106,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 中文
 
-一个 macOS 应用，通过在解锁 Mac 时显示当前日程，帮助你有计划地度过每一刻。
+一个macOS 应用，通过在解锁 Mac 时显示当前日程或是一个置顶的提醒窗口（如果当前没有日程），强力推动你有计划地度过每一刻。
 
 ### 应用截图
 
@@ -183,8 +181,6 @@ swift build
 # 构建发行版
 ./build-release.sh
 ```
-
-**日志位置**：`~/Library/Logs/AlwaysHaveAPlan.log`
 
 ### 配置选项
 
