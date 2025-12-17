@@ -148,7 +148,7 @@ final class AppController: NSObject, ObservableObject {
 
           if showEventsIfAny {
             // Show current events in the same floating window (no extra overlay window).
-            self.windowManager.showFloatingEvents(events, autoHideAfter: 10)
+            self.windowManager.showFloatingEvents(events, autoHideAfter: 3)
           } else {
             // For periodic checks: if there are events, don't show any UI.
             self.windowManager.hideFloatingWindow()
