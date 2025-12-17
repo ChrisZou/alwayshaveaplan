@@ -27,7 +27,7 @@ Every moment should have a plan. When you unlock your Mac, you should be confron
 ### Features
 
 - 🔓 **Unlock Detection**: Automatically shows your current schedule when you unlock or wake your Mac
-- 📅 **Calendar Integration**: Reads from your "日程安排" (Schedule) calendar
+- 📅 **Calendar Integration**: Reads from all your calendars
 - ⏱️ **Progress Tracking**: Shows real-time progress and remaining time for current events
 - 🎨 **Beautiful UI**: Clean, modern interface with smooth animations
 - 🚫 **No Distractions**:
@@ -65,9 +65,8 @@ The app will be created at `run/release/AlwaysHaveAPlan.app`. You can copy it to
 ### Usage
 
 1. **First Launch**: Grant Calendar access when prompted
-2. **Setup Calendar**: Create a calendar named "日程安排" (Schedule) in Calendar.app
-3. **Add Events**: Add your daily events to this calendar
-4. **Unlock and See**: Every time you unlock your Mac, you'll see your current schedule
+2. **Add Events**: Add your daily events to any calendar
+3. **Unlock and See**: Every time you unlock your Mac, you'll see your current schedule
 
 ### Development
 
@@ -84,7 +83,6 @@ swift build
 
 ### Configuration
 
-- **Target Calendar**: Modify `CalendarManager.targetCalendarTitle` in `Sources/App/CalendarManager.swift`
 - **Auto-hide Duration**: Modify `autoHideAfter` parameter in `Sources/App/AppController.swift`
 - **Periodic Check Interval**: Modify timer interval in `Sources/App/AppController.swift`
 
@@ -127,7 +125,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ### 功能特性
 
 - 🔓 **解锁检测**：自动在解锁或唤醒 Mac 时显示当前日程
-- 📅 **日历集成**：从"日程安排"日历中读取事件
+- 📅 **日历集成**：从所有日历中读取事件
 - ⏱️ **进度追踪**：实时显示当前事件的进度和剩余时间
 - 🎨 **精美界面**：简洁现代的界面设计，流畅的动画效果
 - 🚫 **无干扰模式**：
@@ -165,9 +163,8 @@ swift run
 ### 使用说明
 
 1. **首次启动**：根据提示授予日历访问权限
-2. **设置日历**：在日历 App 中创建名为"日程安排"的日历
-3. **添加事件**：将你的日常安排添加到这个日历中
-4. **解锁查看**：每次解锁 Mac 时，都会看到当前的日程
+2. **添加事件**：将你的日常安排添加到任意日历中
+3. **解锁查看**：每次解锁 Mac 时，都会看到当前的日程
 
 ### 开发
 
@@ -184,7 +181,6 @@ swift build
 
 ### 配置选项
 
-- **目标日历**：修改 `Sources/App/CalendarManager.swift` 中的 `CalendarManager.targetCalendarTitle`
 - **自动隐藏时长**：修改 `Sources/App/AppController.swift` 中的 `autoHideAfter` 参数
 - **定期检查间隔**：修改 `Sources/App/AppController.swift` 中的计时器间隔
 

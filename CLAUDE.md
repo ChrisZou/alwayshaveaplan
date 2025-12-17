@@ -74,7 +74,7 @@ swift build -c release
 
 **CalendarManager** (Sources/App/CalendarManager.swift:4)
 - 封装 `EventKit` 进行日历访问
-- 只查询标题为"日程安排"的日历中的事件 (targetCalendarTitle)
+- 查询所有日历中的事件
 - 过滤出"正在进行"的事件 (`startDate <= now && endDate > now`)
 - 处理 macOS 14+ (`.fullAccess`) 和旧版本 (`.authorized`) 的权限模型
 
@@ -99,7 +99,7 @@ swift build -c release
 ### 事件流程
 
 1. **检测到屏幕解锁** → `AppController` 用 0.5 秒去抖调度检查
-2. **执行检查** → `CalendarManager.fetchCurrentEvents()` 查询"日程安排"日历
+2. **执行检查** → `CalendarManager.fetchCurrentEvents()` 查询所有日历
 3. **如果有事件** → `WindowManager.showFloatingEvents()` 显示它们 3 秒
 4. **如果没有事件** → `WindowManager.showFloatingPrompt()` 显示提示 + 在后台打开 Calendar.app
 5. **用户点击"检查日程"** → 触发手动检查（如果有事件则显示，但不打开 Calendar.app）
@@ -108,7 +108,7 @@ swift build -c release
 ### 关键设计决策
 
 - **单一浮动窗口**：对提示和事件显示复用同一个窗口，避免多个覆盖层
-- **目标日历过滤**：只显示"日程安排"日历中的事件，避免噪音
+- **全日历支持**：显示所有日历中的事件，无需特定日历
 - **后台启动 Calendar.app**：使用 `NSWorkspace.OpenConfiguration` 的 `activates = false` 在不抢夺焦点的情况下打开日历
 - **登录项注册**：使用 `SMAppService` (macOS 13+) 自动注册开机启动
 - **Bundle 要求**：macOS 要求 `.app` bundle 才能获取日历权限，因此需要引导机制
@@ -125,9 +125,6 @@ swift build -c release
 - 引导过程详情
 
 ## 常见任务
-
-### 修改目标日历
-修改 Sources/App/CalendarManager.swift:6 中的 `CalendarManager.targetCalendarTitle`
 
 ### 调整自动隐藏时长
 修改 Sources/App/AppController.swift:121 中 `AppController.performCheck()` 的 `autoHideAfter` 参数（当前 3 秒）

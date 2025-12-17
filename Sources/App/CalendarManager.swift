@@ -52,13 +52,8 @@ final class CalendarManager {
         let end = Calendar.current.date(byAdding: .day, value: 1, to: now) ?? now.addingTimeInterval(86400)
 
         let allCalendars = store.calendars(for: .event)
-        let calendars = allCalendars.filter { $0.title == Self.targetCalendarTitle }
-        if calendars.isEmpty {
-            Log.info("Calendar fetch: target calendar not found title=\(Self.targetCalendarTitle) all=\(allCalendars.map { $0.title })")
-            completion([])
-            return
-        }
-        Log.info("Calendar fetch: using calendars=\(calendars.map { $0.title })")
+        let calendars = allCalendars
+        Log.info("Calendar fetch: using all calendars count=\(calendars.count) titles=\(calendars.map { $0.title })")
         let predicate = store.predicateForEvents(withStart: start, end: end, calendars: calendars)
         let matched = store.events(matching: predicate)
         let events = matched.filter {
