@@ -8,6 +8,18 @@
 
 A macOS app that helps you stay intentional with your time by showing your current schedule when you unlock your Mac.
 
+### Screenshots
+
+<div align="center">
+
+| No Events | Current Event |
+|:---------:|:------------:|
+| ![No Events](screenshots/no-events.png) | ![Current Event](screenshots/current-event.png) |
+
+*Stay intentional with every moment*
+
+</div>
+
 ### Philosophy
 
 Every moment should have a plan. When you unlock your Mac, you should be confronted with the question: "What do you want to do?" If you have a scheduled event, it reminds you. If not, it prompts you to create one, preventing aimless time-wasting.
@@ -35,7 +47,7 @@ Every moment should have a plan. When you unlock your Mac, you should be confron
 
 ```sh
 # Clone the repository
-git clone https://github.com/yourusername/alwayshaveaplan.git
+git clone https://github.com/ChrisZou/alwayshaveaplan.git
 cd alwayshaveaplan
 
 # Build and run
@@ -98,6 +110,18 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 一个 macOS 应用，通过在解锁 Mac 时显示当前日程，帮助你有计划地度过每一刻。
 
+### 应用截图
+
+<div align="center">
+
+| 无日程状态 | 当前日程 |
+|:---------:|:--------:|
+| ![无日程](screenshots/no-events.png) | ![当前日程](screenshots/current-event.png) |
+
+*让每一刻都有计划*
+
+</div>
+
 ### 核心理念
 
 每一块时间都应该有计划地度过。当你解锁 Mac 时，应该直面"你想干什么？"这个问题。如果有日程在进行，就显示出来提醒；如果没有日程，就用这个问题唤起自我觉察，避免漫无目的地浪费时间。
@@ -125,7 +149,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ```sh
 # 克隆仓库
-git clone https://github.com/yourusername/alwayshaveaplan.git
+git clone https://github.com/ChrisZou/alwayshaveaplan.git
 cd alwayshaveaplan
 
 # 构建并运行
