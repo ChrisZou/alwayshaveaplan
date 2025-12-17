@@ -1,2 +1,20 @@
+# Build artifacts
 .build/
 run/
+
+# macOS
+.DS_Store
+*.xcworkspace
+xcuserdata/
+*.xcuserstate
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# Xcode
+DerivedData/
+
+# IDEs
+.vscode/
+.idea/
