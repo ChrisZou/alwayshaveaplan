@@ -29,6 +29,19 @@ swift run
 ### 用 Xcode 打开
 在 Xcode 中打开 `Package.swift` (File → Open)，然后运行。
 
+### 构建生产版本
+```sh
+./build-release.sh
+```
+
+这会创建一个优化的 Release 版本的 `run/release/AlwaysHaveAPlan.app`，可以复制到 `/Applications` 目录或分发给其他用户。
+
+**手动构建步骤**：
+```sh
+swift build -c release
+```
+然后手动创建 app bundle 结构并复制文件（详见 `build-release.sh`）。
+
 ## 架构
 
 ### 启动引导流程
