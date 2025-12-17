@@ -1,4 +1,5 @@
 import AppKit
+import Foundation
 
 enum Bootstrapper {
     /// Returns true to continue in current process.
@@ -11,36 +12,29 @@ enum Bootstrapper {
 
         do {
             let appURL = try createOrUpdateAppBundle()
-            let config = NSWorkspace.OpenConfiguration()
-            config.activates = true
-            config.addsToRecentItems = false
-            let semaphore = DispatchSemaphore(value: 0)
-            var launched = false
-            NSWorkspace.shared.openApplication(at: appURL, configuration: config) { _, error in
-                if let error {
-                    NSLog("Failed to launch bundled app: \(error)")
-                    launched = false
-                } else {
-                    launched = true
-                }
-                semaphore.signal()
-            }
-            _ = semaphore.wait(timeout: .now() + 2)
-            if !launched {
-                return true
-            }
+            let executablePath = appURL.appendingPathComponent("Contents/MacOS/AlwaysHaveAPlan").path
 
-            // Verify the launched app is actually running before terminating this process.
-            let bundleID = "com.chriszou.alwayshaveaplan"
-            let deadline = Date().addingTimeInterval(2)
-            while Date() < deadline {
-                if !NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).isEmpty {
-                    return false
-                }
-                Thread.sleep(forTimeInterval: 0.1)
-            }
+            // Launch app bundle as subprocess
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: executablePath)
 
-            return true
+            // Setup signal handler to forward SIGINT to child process
+            signal(SIGINT, SIG_IGN) // Ignore SIGINT in parent process
+            let signalSource = DispatchSource.makeSignalSource(signal: SIGINT, queue: .main)
+            signalSource.setEventHandler {
+                process.interrupt()
+            }
+            signalSource.resume()
+
+            try process.run()
+
+            NSLog("Launched app bundle (pid: \(process.processIdentifier)). Press Ctrl+C to quit...")
+            process.waitUntilExit()
+
+            signalSource.cancel()
+            let exitCode = process.terminationStatus
+            NSLog("App bundle exited with code \(exitCode)")
+            exit(exitCode)
         } catch {
             // If bundling fails, keep running as CLI (no calendar prompt).
             NSLog("Bootstrapper failed: \(error)")
