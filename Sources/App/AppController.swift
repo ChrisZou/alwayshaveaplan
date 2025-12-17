@@ -86,6 +86,13 @@ final class AppController: NSObject, ObservableObject {
         reason: "periodicTimer", openCalendarIfNoEvents: false, showEventsIfAny: false)
     }
     RunLoop.main.add(periodicTimer!, forMode: .common)
+    Log.info("Periodic checks started")
+  }
+
+  private func stopPeriodicChecks() {
+    periodicTimer?.invalidate()
+    periodicTimer = nil
+    Log.info("Periodic checks stopped")
   }
 
   private func scheduleUnlockCheck(
@@ -115,6 +122,9 @@ final class AppController: NSObject, ObservableObject {
       DispatchQueue.main.async {
         Log.info("performCheck: events.count=\(events.count)")
         if events.isEmpty {
+          // No events: stop periodic checks to avoid focus interruption
+          self.stopPeriodicChecks()
+
           self.windowManager.showFloatingPrompt(
             onCheck: { [weak self] in
               Log.info("FloatingPrompt: onCheck tapped")
@@ -131,6 +141,11 @@ final class AppController: NSObject, ObservableObject {
             self.openCalendarAppBackground()
           }
         } else {
+          // Has events: ensure periodic checks are running
+          if self.periodicTimer == nil {
+            self.startPeriodicChecks()
+          }
+
           if showEventsIfAny {
             // Show current events in the same floating window (no extra overlay window).
             self.windowManager.showFloatingEvents(events, autoHideAfter: 10)
