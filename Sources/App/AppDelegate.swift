@@ -21,6 +21,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             Log.error("Failed to register login item: \(error)")
         }
 
+        // Disable Command+Q
+        disableCommandQ()
+
         appController = AppController()
+    }
+
+    private func disableCommandQ() {
+        // Remove the Quit menu item's key equivalent
+        if let appMenu = NSApp.mainMenu?.items.first?.submenu {
+            for item in appMenu.items {
+                if item.action == #selector(NSApplication.terminate(_:)) {
+                    item.keyEquivalent = ""
+                }
+            }
+        }
+    }
+
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        // Prevent Command+Q from quitting the app
+        Log.info("Terminate request blocked")
+        return .terminateCancel
     }
 }
