@@ -123,6 +123,15 @@ struct NoEventsView: View {
                     .offset(y: appeared ? 0 : 20)
                     .animation(.easeOut(duration: 0.6), value: appeared)
 
+                Text("别着急，好好想一想，当前最重要的事情是什么？")
+                    .font(.system(size: 24, weight: .regular))
+                    .foregroundColor(.stone500)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 32)
+                    .opacity(appeared ? 1 : 0)
+                    .offset(y: appeared ? 0 : 15)
+                    .animation(.easeOut(duration: 0.6).delay(0.1), value: appeared)
+
                 Spacer()
 
                 Button(action: onCheck) {
