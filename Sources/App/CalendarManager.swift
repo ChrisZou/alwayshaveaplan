@@ -51,9 +51,10 @@ final class CalendarManager {
         let start = Calendar.current.date(byAdding: .day, value: -1, to: now) ?? now.addingTimeInterval(-86400)
         let end = Calendar.current.date(byAdding: .day, value: 1, to: now) ?? now.addingTimeInterval(86400)
 
+        let excludedCalendars: Set<String> = ["中国大陆节假日"]
         let allCalendars = store.calendars(for: .event)
-        let calendars = allCalendars
-        Log.info("Calendar fetch: using all calendars count=\(calendars.count) titles=\(calendars.map { $0.title })")
+        let calendars = allCalendars.filter { !excludedCalendars.contains($0.title) }
+        Log.info("Calendar fetch: using calendars count=\(calendars.count) titles=\(calendars.map { $0.title })")
         let predicate = store.predicateForEvents(withStart: start, end: end, calendars: calendars)
         let matched = store.events(matching: predicate)
         let events = matched.filter {
