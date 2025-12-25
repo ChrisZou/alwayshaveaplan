@@ -13,12 +13,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         // Auto-register as a login item (macOS 13+).
-        // This is idempotent and will keep the app running in background on future logins.
-        do {
-            try SMAppService.mainApp.register()
-            Log.info("Login item register attempted. status=\(SMAppService.mainApp.status.rawValue)")
-        } catch {
-            Log.error("Failed to register login item: \(error)")
+        // Only register if not already registered to avoid duplicate entries.
+        let loginItemStatus = SMAppService.mainApp.status
+        if loginItemStatus == .notRegistered {
+            do {
+                try SMAppService.mainApp.register()
+                Log.info("Login item registered. status=\(SMAppService.mainApp.status.rawValue)")
+            } catch {
+                Log.error("Failed to register login item: \(error)")
+            }
+        } else {
+            Log.info("Login item already registered. status=\(loginItemStatus.rawValue)")
         }
 
         // Disable Command+Q
