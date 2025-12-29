@@ -47,6 +47,10 @@ final class CalendarManager {
             return
         }
 
+        // 刷新 EKEventStore 缓存，确保获取最新的日历数据
+        // 这对于长时间休眠后重新唤醒的场景非常重要
+        store.refreshSourcesIfNecessary()
+
         let now = Date()
         let start = Calendar.current.date(byAdding: .day, value: -1, to: now) ?? now.addingTimeInterval(-86400)
         let end = Calendar.current.date(byAdding: .day, value: 1, to: now) ?? now.addingTimeInterval(86400)
